@@ -283,6 +283,287 @@ input[type=range]{accent-color:var(--text);height:4px}
 .code-overlay{position:absolute;inset:0;cursor:pointer}
 .expand-hint{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.6);color:white;font-size:11px;padding:4px 8px;border-radius:6px}
 
+/* ============================================================
+   SAILOR AI — redesigned
+   ============================================================ */
+#page-sailor {
+  height: 100%;
+  display: none;
+}
+#page-sailor.active {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 61px); /* subtract topbar */
+}
+
+.sailor-topbar {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.sailor-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--text);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.sailor-avatar svg { display: block; }
+.sailor-title-wrap { flex: 1 }
+.sailor-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.sailor-subtitle {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 1px;
+}
+.sailor-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text3);
+  flex-shrink: 0;
+}
+.sailor-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  flex-shrink: 0;
+}
+
+.sailor-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: #ffffff;
+}
+[data-theme="dark"] .sailor-messages {
+  background: var(--bg);
+}
+
+/* date / section dividers */
+.sailor-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0 8px;
+}
+.sailor-divider span {
+  font-size: 11px;
+  color: var(--text3);
+  white-space: nowrap;
+}
+.sailor-divider::before,
+.sailor-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* message rows */
+.sailor-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.sailor-row.user-row { flex-direction: row-reverse; }
+
+.sailor-bot-av {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--text);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+}
+.sailor-bot-av svg { display: block; }
+
+.sailor-bubble {
+  max-width: 72%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.bot-bubble {
+  background: #f0f0f0;
+  color: #1a1a1a;
+  border-bottom-left-radius: 4px;
+}
+[data-theme="dark"] .bot-bubble {
+  background: var(--bg3);
+  color: var(--text);
+}
+.user-bubble {
+  background: #1a1714;
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+[data-theme="dark"] .user-bubble {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.sailor-ts {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 2px;
+  padding: 0 2px;
+}
+.user-row .sailor-ts { text-align: right; }
+
+/* typing indicator */
+.typing-bubble {
+  background: #f0f0f0;
+  color: #1a1a1a;
+  border-radius: 14px;
+  border-bottom-left-radius: 4px;
+  padding: 12px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+[data-theme="dark"] .typing-bubble {
+  background: var(--bg3);
+}
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text3);
+  animation: typingBounce 1.2s infinite ease-in-out;
+}
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* welcome state */
+.sailor-welcome {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 24px;
+  text-align: center;
+}
+.sailor-welcome-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--text);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.sailor-welcome h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+.sailor-welcome p {
+  font-size: 13px;
+  color: var(--text3);
+  max-width: 260px;
+  line-height: 1.6;
+}
+.sailor-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 6px;
+}
+.sailor-chip {
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--text2);
+  cursor: pointer;
+  transition: all .15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.sailor-chip:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+/* input bar */
+.sailor-input-bar {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.sailor-input {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.sailor-input:focus { border-color: var(--text); }
+.sailor-send-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity .15s;
+}
+.sailor-send-btn:hover { opacity: .8; }
+.sailor-send-btn:disabled { opacity: .35; cursor: default; }
+
 /* Responsive */
 @media(max-width:768px){
   #sidebar{display:none}
@@ -297,6 +578,10 @@ input[type=range]{accent-color:var(--text);height:4px}
   .form-row{grid-template-columns:1fr}
   .profile-stats{flex-wrap:wrap;gap:12px}
   .profile-top{flex-direction:column}
+
+  #page-sailor.active {
+    height: calc(100vh - 61px - 72px);
+  }
 }
 @media(min-width:769px){
   .chat-main{display:flex!important}
@@ -337,11 +622,9 @@ input[type=range]{accent-color:var(--text);height:4px}
         Feed
       </div>
       <div class="nav-item" data-page="sailor" onclick="navigate('sailor')">
-  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-  </svg>
-  Sailor
-</div>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Sailor
+      </div>
       <div class="nav-item" data-page="collab" onclick="navigate('collab')">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         Collab
@@ -391,35 +674,58 @@ input[type=range]{accent-color:var(--text);height:4px}
       </div>
     </div>
 
-    <!-- CHATS -->
-     <!-- SAILOR -->
-<div id="page-sailor" class="page">
-  <div id="content">
+    <!-- SAILOR AI — redesigned -->
+    <div id="page-sailor" class="page">
 
-    <h2 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:16px">
-      Sailor AI
-    </h2>
-
-    <div class="card" style="padding:16px;height:70vh;display:flex;flex-direction:column">
-
-      <!-- messages -->
-      <div id="sailor-messages"
-           style="flex:1;overflow-y:auto;padding:10px;border-radius:10px;background:rgba(0,0,0,0.2)">
+      <!-- Topbar inside Sailor -->
+      <div class="sailor-topbar">
+        <div class="sailor-avatar">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="sailor-title-wrap">
+          <div class="sailor-title">Sailor AI</div>
+          <div class="sailor-subtitle">Your startup co-pilot</div>
+        </div>
+        <div class="sailor-status">
+          <div class="sailor-status-dot"></div>
+          Online
+        </div>
       </div>
 
-      <!-- input -->
-      <div style="display:flex;gap:8px;margin-top:10px">
-        <input id="sailor-input"
-               placeholder="Ask Sailor..."
-               style="flex:1;padding:10px;border-radius:8px;border:none;outline:none" />
-        <button class="btn btn-primary btn-sm" onclick="sendSailorMsg()">Send</button>
+      <!-- Messages -->
+      <div class="sailor-messages" id="sailor-messages">
+        <!-- Welcome shown when no messages -->
+        <div class="sailor-welcome" id="sailor-welcome">
+          <div class="sailor-welcome-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h3>Hey, I'm Sailor</h3>
+          <p>Your AI co-pilot for building, pitching, and growing your startup.</p>
+          <div class="sailor-chips">
+            <button class="sailor-chip" onclick="sailorChip('Help me write my pitch')">Write my pitch</button>
+            <button class="sailor-chip" onclick="sailorChip('How do I find early customers?')">Find customers</button>
+            <button class="sailor-chip" onclick="sailorChip('Review my business idea')">Review idea</button>
+            <button class="sailor-chip" onclick="sailorChip('What should I post today?')">Content ideas</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input bar -->
+      <div class="sailor-input-bar">
+        <input
+          class="sailor-input"
+          id="sailor-input"
+          placeholder="Ask Sailor anything…"
+          autocomplete="off"
+        />
+        <button class="sailor-send-btn" id="sailor-send-btn" onclick="sendSailorMsg()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
       </div>
 
     </div>
 
-  </div>
-</div>
-
+    <!-- CHATS -->
     <div id="page-chats" class="page">
       <div class="chat-layout">
         <div class="chat-sidebar" id="chat-sidebar">
@@ -502,6 +808,10 @@ input[type=range]{accent-color:var(--text);height:4px}
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
         Feed
       </div>
+      <div class="bb-item" data-page="sailor" onclick="navigate('sailor')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Sailor
+      </div>
       <div class="bb-item" data-page="collab" onclick="navigate('collab')">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
         Collab
@@ -513,10 +823,6 @@ input[type=range]{accent-color:var(--text);height:4px}
       <div class="bb-item" data-page="profile" onclick="navigate('profile')">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Profile
-      </div>
-      <div class="bb-item" data-page="settings" onclick="navigate('settings')">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-        Settings
       </div>
     </div>
   </div>
@@ -621,7 +927,6 @@ input[type=range]{accent-color:var(--text);height:4px}
         <button class="tool-btn" title="Undo" onclick="canvasUndo()">↩️</button>
         <button class="tool-btn" title="Clear" onclick="clearCanvas()">🗑️</button>
       </div>
-      <!-- Font controls for text tool -->
       <div id="text-tool-opts" style="display:none;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:center">
         <input type="text" id="canvas-text-input" placeholder="Enter text..." style="flex:1;min-width:120px;max-width:200px;padding:6px 10px;font-size:13px">
         <select id="canvas-font" style="padding:6px 8px;font-size:13px">
@@ -707,7 +1012,7 @@ input[type=range]{accent-color:var(--text);height:4px}
   </div>
 </div>
 
-<!-- VIEW CODE POST MODAL (for other users - shows preview only) -->
+<!-- VIEW CODE POST MODAL -->
 <div id="view-code-modal" class="modal-overlay" style="display:none">
   <div class="modal" style="max-width:700px">
     <div class="modal-header">
@@ -720,7 +1025,7 @@ input[type=range]{accent-color:var(--text);height:4px}
   </div>
 </div>
 
-<!-- VIEW PROFILE MODAL (other users) -->
+<!-- VIEW PROFILE MODAL -->
 <div id="view-profile-modal" class="modal-overlay" style="display:none">
   <div class="modal" style="max-width:600px">
     <div class="modal-header">
@@ -766,7 +1071,6 @@ renderFeed();
 renderCollab();
 renderChats();
 
-// Show setup modal if no profile
 if (!state.profile) {
   setTimeout(() => openSetupModal(), 300);
 }
@@ -781,19 +1085,11 @@ function navigate(page) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
   document.querySelectorAll('.bb-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
 
-  const titles = {
-  feed:'Feed',
-  collab:'Collab',
-  chats:'Chats',
-  profile:'Profile',
-  settings:'Settings',
-  sailor:'Sailor'
-};
+  const titles = { feed:'Feed', collab:'Collab', chats:'Chats', profile:'Profile', settings:'Settings', sailor:'Sailor AI' };
   document.getElementById('topbar-title').textContent = titles[page] || page;
 
   if (page === 'profile') renderProfile();
 
-  // close fab
   document.getElementById('fab-menu').classList.remove('open');
 }
 
@@ -862,6 +1158,135 @@ document.addEventListener('click', e => {
 });
 
 // ============================================================
+// SAILOR AI
+// ============================================================
+let sailorBusy = false;
+
+function sailorNow() {
+  const now = new Date();
+  return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function sailorHideWelcome() {
+  const w = document.getElementById('sailor-welcome');
+  if (w) w.style.display = 'none';
+}
+
+function appendSailorMsg(text, type) {
+  const box = document.getElementById('sailor-messages');
+
+  const row = document.createElement('div');
+  row.className = 'sailor-row ' + (type === 'user' ? 'user-row' : 'bot-row');
+
+  if (type === 'bot') {
+    row.innerHTML = `
+      <div class="sailor-bot-av">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </div>
+      <div>
+        <div class="sailor-bubble bot-bubble">${escHtml(text)}</div>
+        <div class="sailor-ts">${sailorNow()}</div>
+      </div>`;
+  } else {
+    row.innerHTML = `
+      <div>
+        <div class="sailor-bubble user-bubble">${escHtml(text)}</div>
+        <div class="sailor-ts">${sailorNow()}</div>
+      </div>`;
+  }
+
+  box.appendChild(row);
+  box.scrollTop = box.scrollHeight;
+}
+
+function showTypingIndicator() {
+  const box = document.getElementById('sailor-messages');
+  const row = document.createElement('div');
+  row.className = 'sailor-row bot-row';
+  row.id = 'sailor-typing';
+  row.innerHTML = `
+    <div class="sailor-bot-av">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    </div>
+    <div class="typing-bubble">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>`;
+  box.appendChild(row);
+  box.scrollTop = box.scrollHeight;
+}
+
+function removeTypingIndicator() {
+  const el = document.getElementById('sailor-typing');
+  if (el) el.remove();
+}
+
+async function sendSailorMsg() {
+  if (sailorBusy) return;
+  const input = document.getElementById('sailor-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  sailorHideWelcome();
+  input.value = '';
+  appendSailorMsg(text, 'user');
+
+  sailorBusy = true;
+  const sendBtn = document.getElementById('sailor-send-btn');
+  if (sendBtn) sendBtn.disabled = true;
+
+  showTypingIndicator();
+
+  // 3 second delay then call API
+  await new Promise(r => setTimeout(r, 3000));
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+
+    const raw = await res.text();
+    let data;
+    try { data = JSON.parse(raw); } catch { data = { reply: 'Sorry, I had trouble reading that response.' }; }
+
+    removeTypingIndicator();
+    appendSailorMsg(data.reply || 'No response received.', 'bot');
+  } catch (err) {
+    removeTypingIndicator();
+    appendSailorMsg('Network error — please check your connection.', 'bot');
+  }
+
+  sailorBusy = false;
+  if (sendBtn) sendBtn.disabled = false;
+  input.focus();
+}
+
+function sailorChip(text) {
+  const input = document.getElementById('sailor-input');
+  input.value = text;
+  sendSailorMsg();
+}
+
+// Enter key for sailor input
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('sailor-input');
+  if (input) {
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendSailorMsg();
+      }
+    });
+  }
+});
+
+// expose globally
+window.sendSailorMsg = sendSailorMsg;
+
+// ============================================================
 // SETUP PROFILE MODAL
 // ============================================================
 const setupSteps = [
@@ -911,9 +1336,7 @@ function openSetupModal(editing=false) {
   document.getElementById('setup-modal').style.display = 'flex';
 }
 
-function openEditProfile() {
-  openSetupModal(true);
-}
+function openEditProfile() { openSetupModal(true); }
 
 function renderSetupStep() {
   const step = setupSteps[currentStep];
@@ -940,7 +1363,6 @@ function renderSetupStep() {
   });
   stepsWrap.innerHTML = html;
 
-  // Wire textarea word counters
   step.fields.filter(f=>f.maxwords).forEach(f=>{
     const ta = document.getElementById(f.id);
     if (ta) {
@@ -966,14 +1388,11 @@ function saveCurrentStep() {
 
 function setupNext() {
   saveCurrentStep();
-  if (currentStep === 0 && !tempProfile['s-bname']) {
-    toast('Please enter a business name'); return;
-  }
+  if (currentStep === 0 && !tempProfile['s-bname']) { toast('Please enter a business name'); return; }
   if (currentStep < setupSteps.length - 1) {
     currentStep++;
     renderSetupStep();
   } else {
-    // Save profile
     state.profile = {
       businessName: tempProfile['s-bname'],
       founder: tempProfile['s-founder'],
@@ -1052,12 +1471,10 @@ function renderProfile() {
       <button class="btn btn-ghost btn-sm" onclick="openEditProfile()">Edit Profile</button>
     </div>
   </div>
-
   ${p.usp ? `<div class="profile-section"><div class="section-title">Unique Selling Point</div><div class="section-content" style="font-weight:600">${p.usp}</div></div>` : ''}
   ${p.problem ? `<div class="profile-section"><div class="section-title">Problem</div><div class="section-content">${p.problem}</div></div>` : ''}
   ${p.customer ? `<div class="profile-section"><div class="section-title">Target Customer</div><div class="section-content">${p.customer}</div></div>` : ''}
   ${p.solution ? `<div class="profile-section"><div class="section-title">Solution</div><div class="section-content">${p.solution}</div></div>` : ''}
-
   <div class="profile-section">
     <div class="section-title">Published Web Preview</div>
     <div class="editor-wrap">
@@ -1075,22 +1492,17 @@ function renderProfile() {
       ${state.profileCodePublished ? '<span style="font-size:12px;color:var(--text3)">✓ Published & visible to others</span>' : ''}
     </div>
   </div>
-
   <div class="profile-section">
     <div class="section-title" style="margin-bottom:8px">My Posts</div>
     <div id="my-posts-list">${myPosts.length ? '' : '<div style="font-size:13px;color:var(--text3)">No posts yet</div>'}</div>
-  </div>
-  `;
+  </div>`;
 
-  // Render mini post list
   const myPostsEl = document.getElementById('my-posts-list');
   if (myPosts.length) {
     myPostsEl.innerHTML = myPosts.map(po => renderPostCard(po, true)).join('');
     bindPostEvents(myPostsEl);
   }
 }
-
-
 
 function updateProfilePreview() {
   const code = document.getElementById('profile-code-ta')?.value || '';
@@ -1122,13 +1534,10 @@ function closeModal(id) { document.getElementById(id).style.display='none'; }
 function switchEditorTab(btn, showId) {
   btn.closest('.editor-wrap, .modal-body, #page-profile .profile-section').querySelectorAll('.editor-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  const parent = btn.closest('.editor-wrap') || btn.parentElement.parentElement;
-  // hide siblings
   btn.parentElement.querySelectorAll('.editor-tab').forEach(t=>{
     const targetId = t.onclick?.toString().match(/'([^']+)'\)$/)?.[1];
     if (targetId) { const el=document.getElementById(targetId); if(el) el.style.display='none'; }
   });
-  // show target
   const target = document.getElementById(showId);
   if (target) target.style.display='block';
 }
@@ -1139,22 +1548,13 @@ function updateCodePreview() {
   iframe.srcdoc = code;
 }
 
-
-
 function submitCodePost() {
   const caption = document.getElementById('code-post-caption').value.trim();
   const code = document.getElementById('code-post-ta').value;
   if (!code.trim()) { toast('Paste some code first'); return; }
   const post = {
-    id: Date.now(),
-    type: 'code',
-    author: state.username,
-    caption,
-    code,
-    time: new Date().toISOString(),
-    interests: 0,
-    interestedBy: [],
-    comments: []
+    id: Date.now(), type: 'code', author: state.username, caption, code,
+    time: new Date().toISOString(), interests: 0, interestedBy: [], comments: []
   };
   state.posts.unshift(post);
   save();
@@ -1203,17 +1603,9 @@ function submitPitchPost() {
   const optEls = document.querySelectorAll('#poll-options-wrap input[type=text]');
   const options = Array.from(optEls).map(el=>el.value.trim()).filter(Boolean);
   const post = {
-    id: Date.now(),
-    type: 'pitch',
-    author: state.username,
-    pitchText,
-    sub,
-    options: options.map(o=>({text:o, votes:0})),
-    votedBy: [],
-    time: new Date().toISOString(),
-    interests: 0,
-    interestedBy: [],
-    comments: []
+    id: Date.now(), type: 'pitch', author: state.username, pitchText, sub,
+    options: options.map(o=>({text:o, votes:0})), votedBy: [],
+    time: new Date().toISOString(), interests: 0, interestedBy: [], comments: []
   };
   state.posts.unshift(post);
   save();
@@ -1281,7 +1673,6 @@ function endDraw() {
 
 function doFill(e) {
   const color = document.getElementById('brush-color').value;
-  const pos = getPos(e);
   ctx.fillStyle = color;
   ctx.fillRect(0,0,640,360);
   canvasHistory.push(ctx.getImageData(0,0,640,360));
@@ -1305,8 +1696,7 @@ function setTool(t) {
   ['brush','fill','eraser','text'].forEach(n=>{
     document.getElementById('tool-'+n)?.classList.toggle('active', n===t);
   });
-  const textOpts = document.getElementById('text-tool-opts');
-  textOpts.style.display = t==='text'?'flex':'none';
+  document.getElementById('text-tool-opts').style.display = t==='text'?'flex':'none';
   document.getElementById('drawing-canvas').style.cursor = t==='text'?'text':'crosshair';
 }
 
@@ -1316,7 +1706,6 @@ function placeText() {
   const font = document.getElementById('canvas-font').value;
   const size = document.getElementById('canvas-font-size').value;
   const color = document.getElementById('canvas-text-color').value;
-
   ctx.font = `${size}px ${font}`;
   ctx.fillStyle = color;
   ctx.fillText(text, 40, 80);
@@ -1342,15 +1731,8 @@ function submitImagePost() {
   const dataUrl = canvas.toDataURL('image/png');
   const caption = document.getElementById('canvas-caption').value.trim();
   const post = {
-    id: Date.now(),
-    type: 'image',
-    author: state.username,
-    imageData: dataUrl,
-    caption,
-    time: new Date().toISOString(),
-    interests: 0,
-    interestedBy: [],
-    comments: []
+    id: Date.now(), type: 'image', author: state.username, imageData: dataUrl, caption,
+    time: new Date().toISOString(), interests: 0, interestedBy: [], comments: []
   };
   state.posts.unshift(post);
   save();
@@ -1380,8 +1762,6 @@ function renderFeed() {
 function renderPostCard(post, compact=false) {
   const p = state.profile;
   const isOwn = post.author === state.username;
-  const authorProfile = isOwn && p ? p : null;
-
   const initials = post.author[0].toUpperCase();
   const logoSrc = isOwn && p?.logo ? `<img src="${p.logo}" style="width:100%;height:100%;object-fit:cover">` : initials;
   const isInterested = post.interestedBy?.includes(state.username);
@@ -1458,9 +1838,7 @@ function renderPostCard(post, compact=false) {
   </div>`;
 }
 
-function bindPostEvents(container) {
-  // events are inline onclick, no extra binding needed
-}
+function bindPostEvents(container) {}
 
 function toggleInterest(postId, btn) {
   const post = state.posts.find(p=>p.id==postId);
@@ -1503,8 +1881,6 @@ function submitComment(postId) {
   div.innerHTML = `<div class="comment-av">${comment.author[0].toUpperCase()}</div>
     <div class="comment-bubble"><div class="comment-author">${escHtml(comment.author)}</div>${escHtml(comment.text)}</div>`;
   list.appendChild(div);
-  // update count
-  const post2 = state.posts.find(p=>p.id==postId);
   const card = document.querySelector(`[data-postid="${postId}"]`);
   if (card) {
     const countEl = card.querySelectorAll('.action-btn')[1];
@@ -1533,11 +1909,8 @@ function viewCodePost(postId) {
 function toggleFollow(username, btn) {
   if (!state.profile) return;
   if (!state.profile._following) state.profile._following = [];
-  const idx = state.profile._following.indexOf(username);
-  // increment target tracks
-  let targetProfile = null;
-  // We'll simulate by storing track count per username
   if (!state.profileViews._tracks) state.profileViews._tracks = {};
+  const idx = state.profile._following.indexOf(username);
   if (idx >= 0) {
     state.profile._following.splice(idx,1);
     state.profileViews._tracks[username] = Math.max(0,(state.profileViews._tracks[username]||1)-1);
@@ -1554,12 +1927,10 @@ function toggleFollow(username, btn) {
 
 function viewUserProfile(username) {
   if (username === state.username) { navigate('profile'); return; }
-  // Track views
   if (!state.profileViews[username]) state.profileViews[username] = 0;
   state.profileViews[username]++;
   save();
 
-  const p = state.profile;
   const isFollowing = (state.profile?._following||[]).includes(username);
   const userPosts = state.posts.filter(po=>po.author===username);
   const tracks = state.profileViews._tracks?.[username] || 0;
@@ -1567,10 +1938,6 @@ function viewUserProfile(username) {
 
   const body = document.getElementById('vpm-body');
   document.getElementById('vpm-name').textContent = username;
-
-  let previewSection = '';
-  // Show published code preview if this user is the owner (we simulate)
-  const ownerPosts = state.posts.filter(p=>p.author===username&&p.type==='code');
 
   body.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
@@ -1615,7 +1982,7 @@ function vpmJoinQueue(username) {
   if (!state.profileViews._queue) state.profileViews._queue = {};
   state.profileViews._queue[username] = (state.profileViews._queue[username]||0)+1;
   save();
-  toast('Joined queue! You\'re on the waitlist.');
+  toast("Joined queue! You're on the waitlist.");
 }
 
 // ============================================================
@@ -1727,7 +2094,6 @@ function openChat(user) {
       <div class="msg-bubble">${escHtml(m.text)}</div>
     </div>`).join('');
   messages.scrollTop = messages.scrollHeight;
-
   renderChats();
 }
 
@@ -1790,82 +2156,6 @@ function getTimeAgo(iso) {
   if (hrs < 24) return `${hrs}h ago`;
   return `${Math.floor(hrs/24)}d ago`;
 }
-document.addEventListener("DOMContentLoaded", () => {
-
-  const input = document.getElementById("sailor-input");
-  const box = document.getElementById("sailor-messages");
-
-  if (!input || !box) return;
-
-  function addSailorMsg(text, type) {
-    const div = document.createElement("div");
-
-    div.style.margin = "8px 0";
-    div.style.padding = "10px";
-    div.style.borderRadius = "10px";
-    div.style.maxWidth = "80%";
-    div.style.whiteSpace = "pre-wrap";
-
-    if (type === "user") {
-      div.style.background = "#2563eb";
-      div.style.color = "white";
-      div.style.marginLeft = "auto";
-    } else {
-      div.style.background = "#1f2937";
-      div.style.color = "white";
-      div.style.marginRight = "auto";
-    }
-
-    div.innerText = text;
-
-    box.appendChild(div);
-    box.scrollTop = box.scrollHeight;
-  }
-
-  async function sendSailorMsg() {
-    const text = input.value.trim();
-    if (!text) return;
-
-    addSailorMsg(text, "user");
-    input.value = "";
-
-    try {
-      const res = await fetch("/api/chat", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-  message: text
-})
-});
-
-      const raw = await res.text();
-
-      let data;
-      try {
-        data = JSON.parse(raw);
-      } catch {
-        addSailorMsg("Server error", "bot");
-        return;
-      }
-
-      addSailorMsg(data.reply || "No response", "bot");
-
-    } catch (err) {
-      addSailorMsg("Network error", "bot");
-    }
-  }
-
-  // IMPORTANT: expose function for onclick
-  window.sendSailorMsg = sendSailorMsg;
-
-  // ENTER KEY FIX
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      sendSailorMsg();
-    }
-  });
-
-});
 
 // Apply settings on load
 document.getElementById('dark-toggle').classList.toggle('on', state.theme==='dark');
